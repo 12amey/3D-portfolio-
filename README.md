@@ -1,5 +1,4 @@
-![Portfolio Preview](https://github.com/Abhiz2411/3D-interactive-portfolio/blob/main/public/assets/seo/og-image.png?raw=true)
-
+![
 # 🚀 My Portfolio Website
 
 Welcome to the repository for my personal portfolio website! 🎉 This project is a culmination of creativity, technology, and my dedication to showcasing my skills, projects, and personality in a visually stunning and interactive manner.
@@ -110,4 +109,4 @@ Feel free to reach out to me for collaboration, feedback, or just to say hi! �
 
 ---
 
-⭐ If you like this project, don't forget to give it a star!
+⭐ If you like this project, don't forge
