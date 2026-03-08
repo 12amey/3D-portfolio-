@@ -242,55 +242,79 @@ const PROJECT_SKILLS = {
     title: "OpenAI",
     bg: "black",
     fg: "white",
-    icon: <img src="assets/icons/openai-svgrepo-com_white.svg" alt="OpenAI"/>,
+    icon: <img src="assets/icons/openai-svgrepo-com_white.svg" alt="OpenAI" />,
   },
   netlify: {
     title: "Netlify",
     bg: "black",
     fg: "white",
-    icon: <SiNetlify/>,
+    icon: <SiNetlify />,
   },
   html: {
     title: "HTML5",
     bg: "black",
     fg: "white",
-    icon: <SiHtml5/>,
+    icon: <SiHtml5 />,
   },
   css: {
     title: "CSS3",
     bg: "black",
     fg: "white",
-    icon: <SiCss3/>,
+    icon: <SiCss3 />,
   },
   bootstrap: {
     title: "Bootstrap",
     bg: "black",
     fg: "white",
-    icon: <SiBootstrap/>,
+    icon: <SiBootstrap />,
   },
   maven: {
     title: "Maven",
     bg: "black",
     fg: "white",
-    icon: <SiApachemaven/>,
+    icon: <SiApachemaven />,
   },
   java: {
     title: "Java",
     bg: "black",
     fg: "white",
-    icon: <img src="assets/icons/icons8-java.svg" alt="Java"/>,
+    icon: <img src="assets/icons/icons8-java.svg" alt="Java" />,
   },
   cplusplus: {
     title: "C++",
     bg: "black",
     fg: "white",
-    icon: <SiCplusplus/>,
+    icon: <SiCplusplus />,
   },
   arduino: {
     title: "Arduino",
     bg: "black",
     fg: "white",
-    icon: <SiArduino/>,
+    icon: <SiArduino />,
+  },
+  springboot: {
+    title: "Spring Boot",
+    bg: "black",
+    fg: "white",
+    icon: <img src="assets/icons/spring-boot.svg" alt="Spring Boot" />,
+  },
+  opencv: {
+    title: "OpenCV",
+    bg: "black",
+    fg: "white",
+    icon: <img src="assets/icons/opencv.svg" alt="OpenCV" />,
+  },
+  jwt: {
+    title: "JWT",
+    bg: "black",
+    fg: "white",
+    icon: <img src="assets/icons/jwt.svg" alt="JWT" />,
+  },
+  webrtc: {
+    title: "WebRTC",
+    bg: "black",
+    fg: "white",
+    icon: <img src="assets/icons/webrtc.svg" alt="WebRTC" />,
   },
 };
 export type Project = {
@@ -305,6 +329,229 @@ export type Project = {
   live: string;
 };
 const projects: Project[] = [
+  { // 01. AI Resume Suite
+    id: "ai-resume-builder",
+    category: "AI & Full Stack",
+    title: "AI Resume Builder (MERN + AI Automation)",
+    src: "/assets/projects-screenshots/ai-resume-builder/dashboard.webp",
+    screenshots: [
+      "dashboard.webp",
+      "image.png",
+      "image (1).png",
+      "image (2).png",
+      "image (3).png",
+      "image (4).png",
+      "image (5).png",
+      "image (6).png",
+      "image (7).png"
+    ],
+    live: "https://ai-resume-suite.vercel.app/",
+    github: "https://github.com/12amey/ai-resume-suite",
+    skills: {
+      frontend: [PROJECT_SKILLS.react, PROJECT_SKILLS.js],
+      backend: [
+        PROJECT_SKILLS.node,
+        PROJECT_SKILLS.express,
+        PROJECT_SKILLS.mongo,
+        PROJECT_SKILLS.openai,
+      ],
+    },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono ">
+            An intelligent resume builder powered by AI that helps users create
+            professional, ATS-friendly resumes. Built with the MERN stack and integrated
+            with AI for content suggestions, formatting optimization, and keyword analysis.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <SlideShow images={[
+            `${BASE_PATH}/ai-resume-builder/dashboard.webp`,
+            `${BASE_PATH}/ai-resume-builder/image.png`,
+            `${BASE_PATH}/ai-resume-builder/image (1).png`,
+            `${BASE_PATH}/ai-resume-builder/image (2).png`,
+            `${BASE_PATH}/ai-resume-builder/image (3).png`,
+            `${BASE_PATH}/ai-resume-builder/image (4).png`,
+            `${BASE_PATH}/ai-resume-builder/image (5).png`,
+            `${BASE_PATH}/ai-resume-builder/image (6).png`,
+            `${BASE_PATH}/ai-resume-builder/image (7).png`,
+          ]} />
+        </div>
+      );
+    },
+  },
+  { // 02. Real-Time Video Chat App
+    id: "video-chat-app",
+    category: "Real-Time Systems",
+    title: "Real-Time Video Chat App (Node.js + WebRTC + Socket.io)",
+    src: "/assets/projects-screenshots/video-chat-app/landing.webp",
+    screenshots: [
+      "landing.webp",
+      "image.png",
+      "image (1).png",
+      "image (2).png",
+      "image (3).png",
+      "image (4).png"
+    ],
+    live: "https://video-chat-real-time.onrender.com/",
+    github: "https://github.com/12amey/video-chat-real-time",
+    skills: {
+      frontend: [PROJECT_SKILLS.react, PROJECT_SKILLS.js, PROJECT_SKILLS.webrtc],
+      backend: [PROJECT_SKILLS.node, PROJECT_SKILLS.express, PROJECT_SKILLS.sockerio],
+    },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono ">
+            A real-time video chat application built with Node.js, WebRTC, and Socket.io.
+            Features include peer-to-peer video streaming, real-time messaging, and room
+            management for seamless video communication with stunning 3D animations.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <SlideShow images={[
+            `${BASE_PATH}/video-chat-app/landing.webp`,
+            `${BASE_PATH}/video-chat-app/image.png`,
+            `${BASE_PATH}/video-chat-app/image (1).png`,
+            `${BASE_PATH}/video-chat-app/image (2).png`,
+            `${BASE_PATH}/video-chat-app/image (3).png`,
+            `${BASE_PATH}/video-chat-app/image (4).png`,
+          ]} />
+        </div>
+      );
+    },
+  },
+  { // 03. Satellite Data Analysis Demo
+    id: "satellite-data-analysis",
+    category: "Advanced Earth Observation",
+    title: "SatelliteVision Pro - Advanced Satellite Data Analysis Platform",
+    src: "/assets/projects-screenshots/satellite-data-analysis/dashboard.webp",
+    screenshots: [
+      "dashboard.webp",
+      "image.png",
+      "image (1).png",
+      "image (2).png",
+      "image (3).png",
+      "image (4).png",
+      "image (5).png",
+      "image (6).png",
+      "image (7).png"
+    ],
+    live: "https://sattilte.netlify.app/",
+    github: "https://github.com/12amey/demo-stallite",
+    skills: {
+      frontend: [PROJECT_SKILLS.react, PROJECT_SKILLS.js],
+      backend: [PROJECT_SKILLS.node, PROJECT_SKILLS.python, PROJECT_SKILLS.openai],
+    },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono ">
+            An advanced satellite data analysis platform integrating real-time data from NASA, ESA,
+            and ISRO. Features include NDVI time-lapse analysis, interactive satellite maps, AI-powered
+            classification, ML predictions for deforestation and climate impact, and comprehensive
+            environmental monitoring tools.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <SlideShow images={[
+            `${BASE_PATH}/satellite-data-analysis/dashboard.webp`,
+            `${BASE_PATH}/satellite-data-analysis/image.png`,
+            `${BASE_PATH}/satellite-data-analysis/image (1).png`,
+            `${BASE_PATH}/satellite-data-analysis/image (2).png`,
+            `${BASE_PATH}/satellite-data-analysis/image (3).png`,
+            `${BASE_PATH}/satellite-data-analysis/image (4).png`,
+            `${BASE_PATH}/satellite-data-analysis/image (5).png`,
+            `${BASE_PATH}/satellite-data-analysis/image (6).png`,
+            `${BASE_PATH}/satellite-data-analysis/image (7).png`,
+          ]} />
+        </div>
+      );
+    },
+  },
+  { // 04. Job Portal
+    id: "job-portal",
+    category: "Backend & Microservices",
+    title: "Job Portal (Spring Boot + JWT + Microservices)",
+    src: "/assets/projects-screenshots/job-portal/landing.jpg",
+    screenshots: ["landing.jpg"],
+    live: "https://github.com/12amey/job_portalnew",
+    github: "https://github.com/12amey/job_portalnew",
+    skills: {
+      frontend: [PROJECT_SKILLS.react],
+      backend: [
+        PROJECT_SKILLS.java,
+        PROJECT_SKILLS.springboot,
+        PROJECT_SKILLS.jwt,
+        PROJECT_SKILLS.postgres,
+      ],
+    },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono ">
+            A full-featured job portal built with Spring Boot, JWT authentication,
+            and microservices architecture. This platform enables seamless job
+            searching, application management, and secure user authentication with
+            role-based access control.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <SlideShow images={[`${BASE_PATH}/job-portal/landing.jpg`]} />
+        </div>
+      );
+    },
+  },
+  { // 05. Face Recognition System
+    id: "face-recognition",
+    category: "Machine Learning",
+    title: "Face Recognition System (ML + OpenCV + Python)",
+    src: "/assets/projects-screenshots/face-recognition/landing.webp",
+    screenshots: ["landing.webp"],
+    live: "https://github.com/12amey/face-recognition-master",
+    github: "https://github.com/12amey/face-recognition-master",
+    skills: {
+      frontend: [PROJECT_SKILLS.python],
+      backend: [PROJECT_SKILLS.python, PROJECT_SKILLS.opencv],
+    },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono ">
+            An advanced face recognition system built with Python, OpenCV, and Machine
+            Learning algorithms. This project implements real-time face detection and
+            recognition capabilities with high accuracy for security and authentication
+            purposes.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <SlideShow images={[`${BASE_PATH}/face-recognition/landing.webp`]} />
+        </div>
+      );
+    },
+  },
+  { // 06. Quick Food Delivery Website
+    id: "quick-food-delivery",
+    category: "Frontend Development",
+    title: "Quick Food Delivery Website (Frontend Project)",
+    src: "/assets/projects-screenshots/quick-food-delivery/landing.png",
+    screenshots: ["landing.png"],
+    live: "https://github.com/12amey/quick-food-delivery-website",
+    github: "https://github.com/12amey/quick-food-delivery-website",
+    skills: {
+      frontend: [PROJECT_SKILLS.html, PROJECT_SKILLS.css, PROJECT_SKILLS.js],
+      backend: [],
+    },
+    get content() {
+      return (
+        <div>
+          <TypographyP className="font-mono ">
+            A modern and responsive food delivery website featuring a clean UI,
+            intuitive navigation, and smooth user experience. Built with vanilla
+            HTML, CSS, and JavaScript to showcase frontend development skills.
+          </TypographyP>
+          <ProjectsLinks live={this.live} repo={this.github} />
+          <SlideShow images={[`${BASE_PATH}/quick-food-delivery/landing.png`]} />
+        </div>
+      );
+    },
+  },
   // {
   //   id: "codingducks",
   //   category: "Coding platform",
@@ -329,7 +576,7 @@ const projects: Project[] = [
   //     ],
   //   },
   //   live: "https://www.codingducks.xyz/",
-  //   github: "https://github.com/Naresh-Khatri/Coding-Ducks",
+  //   github: "https://github.com/12amey/Coding-Ducks",
   //   get content() {
   //     return (
   //       <div>
@@ -570,8 +817,8 @@ const projects: Project[] = [
   //   title: "My Portfolio",
   //   src: "/assets/projects-screenshots/portfolio/landing.png",
   //   screenshots: ["1.png"],
-  //   live: "http://nareshkhatri.vercel.app",
-  //   github:"https://github.com/Naresh-Khatri/Portfolio",
+  //   live: "http://12amey.vercel.app",
+  //   github:"https://github.com/12amey/Portfolio",
   //   skills: {
   //     frontend: [
   //       PROJECT_SKILLS.ts,
@@ -637,7 +884,7 @@ const projects: Project[] = [
   //   src: "/assets/projects-screenshots/ghostchat/1.png",
   //   screenshots: ["1.png", "2.png", "3.png", "4.png"],
   //   live: "https://ghostchat.vercel.app",
-  //   github:"https://github.com/Naresh-Khatri/GhostChat",
+  //   github:"https://github.com/12amey/GhostChat",
   //   skills: {
   //     frontend: [PROJECT_SKILLS.js, PROJECT_SKILLS.next, PROJECT_SKILLS.chakra],
   //     backend: [PROJECT_SKILLS.supabase],
@@ -672,7 +919,7 @@ const projects: Project[] = [
   //   title: "JNTUA Results Analyzer",
   //   src: "/assets/projects-screenshots/jra/1.png",
   //   screenshots: ["1.png"],
-  //   live: "https://naresh-khatri.github.io/JNTUA-result-analyser-spa/#/",
+  //   live: "https://12amey.github.io/JNTUA-result-analyser-spa/#/",
   //   skills: {
   //     frontend: [PROJECT_SKILLS.js, PROJECT_SKILLS.vue],
   //     backend: [
@@ -768,307 +1015,5 @@ const projects: Project[] = [
   //   },
   // },
 
-  // +
-  { // 01. AI Docker file optimizer project
-    id: "aidockerfileoptimizer",
-    category: "AI and DevOps",
-    title: "AI Dockerfile Optimizer",
-    src: "/assets/projects-screenshots/aidockerfileoptimizer/2.png",
-    screenshots: ["1.png", "2.png", "3.png"],
-    live: "https://ai-docker-file-optimizer.netlify.app/",
-    github:"https://github.com/Abhiz2411/AI-Docker-file-optimizer",
-    skills: {
-      frontend: [PROJECT_SKILLS.js, PROJECT_SKILLS.next, PROJECT_SKILLS.tailwind, PROJECT_SKILLS.vite],
-      backend: [PROJECT_SKILLS.openai,PROJECT_SKILLS.netlify],
-    },
-    get content() {
-      return (
-        <div>
-          <TypographyP className="font-mono ">
-            AI-Docker-file-optimizer helps optimize Dockerfiles for smaller, more efficient images. 
-            Simply paste your Dockerfile, and the app analyzes it for best practices and size 
-            optimization tips. It then provides a refactored, optimized version of the Dockerfile. 
-            Deployed on Vercel, it ensures fast and easy access to Dockerfile optimization.
-          </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
-          <SlideShow
-            images={[
-              `${BASE_PATH}/aidockerfileoptimizer/1.png`,
-              `${BASE_PATH}/aidockerfileoptimizer/2.png`,
-              `${BASE_PATH}/aidockerfileoptimizer/3.png`,
-            ]}
-          />
-        </div>
-      );
-    },
-  },
-  { // 02. FinanceMe project
-    id: "financeme",
-    category: "DevOps in Banking and Finance",
-    title: "FinanceMe: Complete DevOps Capstone Project",
-    src: "/assets/projects-screenshots/financeme/1.png",
-    screenshots: ["/assets/projects-screenshots/financeme/1.png"],
-    skills: {
-      frontend: [
-        PROJECT_SKILLS.html,
-        PROJECT_SKILLS.css,
-        PROJECT_SKILLS.js,
-        PROJECT_SKILLS.bootstrap,
-      ],
-      backend: [
-        PROJECT_SKILLS.java,
-        PROJECT_SKILLS.maven,
-        PROJECT_SKILLS.postgres,
-      ],
-    },
-    live: "https://github.com/Abhiz2411/FinanceMe-Devops-Project-01",
-    github: "https://github.com/Abhiz2411/FinanceMe-Devops-Project-01",
-    get content() {
-      return (
-        <div>
-          <TypographyP className="font-mono text-2xl text-center">
-            FinanceMe: Complete DevOps Capstone Project
-          </TypographyP>
-          <TypographyP className="font-mono ">
-            This project demonstrates the deployment of a DevOps pipeline for a global banking and
-            financial services provider, FinanceMe. The company transitioned from a monolithic 
-            architecture to a microservice-based architecture to handle increased traffic and 
-            scaling challenges. The project involves automating infrastructure provisioning, build 
-            and deployment processes, and continuous monitoring using modern DevOps tools and 
-            AWS services.?
-          </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
-          <TypographyH3 className="my-4 mt-8">Architecture </TypographyH3>
-          <p className="font-mono mb-2">
-            The project is divided into three main phases:
-            1.Automating Infrastructure Provisioning
-            2.Build and Deployment Automation
-            3.Continuous Monitoring
-          </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/financeme/1.png`,
-              `${BASE_PATH}/financeme/2.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 mt-8">Automating Infrastructure Provisioning</TypographyH3>
-          <p className="font-mono mb-2">
-          Terraform is used to create 4 AWS EC2 instances:
-            Jenkins Master Node (for CI/CD pipeline management)
-            Build Server (for application and Docker image builds)
-            Production Server (for deploying Dockerized applications)
-            Monitoring Server (for continuous monitoring of Build and Prod servers)
-          </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/financeme/4_A.png`,
-              `${BASE_PATH}/financeme/4.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 mt-8">Build and Deployment Automation</TypographyH3>
-
-          <p className="font-mono mb-2">
-          Jenkins is configured for a CI/CD pipeline:
-            Jenkins Master Node is responsible for pipeline orchestration.
-            Build Server is configured as a Jenkins Slave Node to handle application builds and Docker image creation.
-            Ansible is used for automating deployment to the Prod server, where the application is deployed using an Ansible client-server model.
-          </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/financeme/5.png`,
-              `${BASE_PATH}/financeme/6.png`,
-              `${BASE_PATH}/financeme/7.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 mt-8">Continuous Monitoring </TypographyH3>
-          <p className="font-mono mb-2">
-          Prometheus and Grafana are used for real-time monitoring:
-            Node Exporter is installed on both Build and Prod servers to collect server metrics (CPU, Disk Space, Memory Utilization).
-            Grafana Dashboard is created to visualize these metrics for continuous monitoring.
-          </p>
-          <SlideShow images={[
-                `${BASE_PATH}/financeme/3.png`,
-                `${BASE_PATH}/financeme/8.png`,
-                `${BASE_PATH}/financeme/9.png`,
-                `${BASE_PATH}/financeme/10.png`,
-            ]} />
-        </div>
-      );
-    },
-  },
-  { // 03. Portfolio project
-    id: "portfolio",
-    category: "Portfolio",
-    title: "My Portfolio",
-    src: "/assets/projects-screenshots/myportfolio/landing.png",
-    screenshots: ["assets/projects-screenshots/myportfolio/landing.png"],
-    live: "https://www.abhijitzende.com/",
-    github:"https://github.com/Abhiz2411/3D-interactive-portfolio",
-    skills: {
-      frontend: [
-        PROJECT_SKILLS.ts,
-        PROJECT_SKILLS.next,
-        PROJECT_SKILLS.shadcn,
-        PROJECT_SKILLS.aceternity,
-        PROJECT_SKILLS.framerMotion,
-        PROJECT_SKILLS.tailwind,
-        PROJECT_SKILLS.spline,
-      ],
-      backend: [],
-    },
-    get content() {
-      return (
-        <div>
-          <TypographyP className="font-mono ">
-            Welcome to my digital playground, where creativity meets code in the
-            dopest way possible.
-          </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
-          <TypographyH3 className="my-4 mt-8">
-            Beautiful 3D Objects{" "}
-          </TypographyH3>
-          <p className="font-mono mb-2">
-            Did you see that 3D keyboard modal? Yeah! I made that. That
-            interactive keyboard is being rendered in 3D on a webpage 🤯, and
-            pressing each keycap reveals a skill in a goofy way. It&apos;s like
-            typing, but make it art.
-          </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/myportfolio/landing.png`,
-              `${BASE_PATH}/portfolio/skills.png`,
-            ]}
-          />
-          <TypographyH3 className="my-4 ">Space Theme</TypographyH3>
-          <p className="font-mono mb-2">
-            Dark background + floating particles = out-of-this-world cool.
-          </p>
-          <SlideShow images={[`${BASE_PATH}/myportfolio/navbar.png`]} />
-          <TypographyH3 className="my-4 mt-8">Projects</TypographyH3>
-
-          <p className="font-mono mb-2">
-            My top personal and freelance projects — no filler, all killer.
-          </p>
-          <SlideShow
-            images={[
-              `${BASE_PATH}/myportfolio/projects.png`,
-              `${BASE_PATH}/myportfolio/project.png`,
-            ]}
-          />
-          <p className="font-mono mb-2 mt-8 text-center">
-            This site&apos;s not just a portfolio — it&apos;s a whole vibe.
-          </p>
-        </div>
-      );
-    },
-  },
-  { // 04. Smart parking assitant
-    id: "smartparkingassitant",
-    category: "IoT",
-    title: "Smart Parking Assistant",
-    src: "/assets/projects-screenshots/smartparkingassitant/01.jpeg",
-    screenshots: ["01.jpeg", "03.png"],
-    live: "https://github.com/Abhiz2411/smart-parking-assistant",
-    github:"https://github.com/Abhiz2411/smart-parking-assistant",
-    skills: {
-      frontend: [PROJECT_SKILLS.python],
-      backend: [PROJECT_SKILLS.cplusplus, PROJECT_SKILLS.arduino],
-    },
-    get content() {
-      return (
-        <div>
-          <TypographyP className="font-mono ">
-            Transform parking with the Smart Parking Assistant, an IoT marvel powered by Arduino 
-            and IR sensors to detect and recommend the best spots in real-time. Enjoy a sleek GUI 
-            that visualizes availability and an intelligent system for quick, optimal decisions. 
-            Built to adapt with customizable hardware and Python-powered software for seamless 
-            integration. Say goodbye to parking woes and hello to smarter space utilization!
-          </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
-          <SlideShow
-            images={[
-              `${BASE_PATH}/smartparkingassitant/01.jpeg`,
-              `${BASE_PATH}/smartparkingassitant/03.png`,
-              `${BASE_PATH}/smartparkingassitant/04.jpg`,
-            ]}
-          />
-        </div>
-      );
-    },
-  },
-  { // 05. Smart Job Tracker project
-    id: "smartjobtracker",
-    category: "Full stack",
-    title: "Smart Job Tracker",
-    src: "/assets/projects-screenshots/smartjobtracker/02.png",
-    screenshots: ["01.png", "02.png", "03.png","04.png","05.png","06.png","07.png"],
-    live: "https://job-tracker-application-eight.vercel.app/",
-    github:"https://github.com/Abhiz2411/Job-tracker-application",
-    skills: {
-      frontend: [PROJECT_SKILLS.js, PROJECT_SKILLS.next, PROJECT_SKILLS.tailwind, PROJECT_SKILLS.vite],
-      backend: [PROJECT_SKILLS.firebase],
-    },
-    get content() {
-      return (
-        <div>
-          <TypographyP className="font-mono ">
-            Track your job applications effortlessly with a sleek, dark-themed app that lets you 
-            manage, filter, and visualize your job search. Organize your applications with a 
-            Kanban board, monitor progress through status updates, and store everything securely. 
-            Enjoy seamless access across devices with a responsive design and email reminders for 
-            interviews. A smarter, more intuitive way to stay on top of your job hunt!
-          </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
-          <SlideShow
-            images={[
-              `${BASE_PATH}/smartjobtracker/01.png`,
-              `${BASE_PATH}/smartjobtracker/02.png`,
-              `${BASE_PATH}/smartjobtracker/03.png`,
-              `${BASE_PATH}/smartjobtracker/04.png`,
-              `${BASE_PATH}/smartjobtracker/05.png`,
-              `${BASE_PATH}/smartjobtracker/06.png`,
-              `${BASE_PATH}/smartjobtracker/07.png`,
-            ]}
-          />
-        </div>
-      );
-    },
-  },
-  { // 06. Savinder Puri portfolio project
-    id: "savinderpurisportfolio",
-    category: "Web Development",
-    title: "Savinder Puri Portfolio",
-    src: "/assets/projects-screenshots/savinderpuriportfolio/01.png",
-    screenshots: ["01.png", "02.png", "03.png","04.png","05.png"],
-    live: "https://savinder-puri.vercel.app/",
-    github:"https://github.com/Abhiz2411/savinder-puri",
-    skills: {
-      frontend: [PROJECT_SKILLS.js, PROJECT_SKILLS.next, PROJECT_SKILLS.tailwind, PROJECT_SKILLS.vite],
-      backend: [],
-    },
-    get content() {
-      return (
-        <div>
-          <TypographyP className="font-mono ">
-            Step into the digital world of Savinder Puri, the beloved DevOps guru and Spiritual 
-            Alchemist, with this responsive portfolio website. 🌐✨ Explore his inspiring journey, 
-            milestones, and life-changing services blending tech and spirituality. Built with 
-            modern tools like React and TypeScript, it’s a heartfelt tribute to a mentor who 
-            transforms lives. 💻🕊️ Crafted with ❤️ by Abhijit Zende! 🚀
-          </TypographyP>
-          <ProjectsLinks live={this.live} repo={this.github} />
-          <SlideShow
-            images={[
-              `${BASE_PATH}/savinderpuriportfolio/01.png`,
-              `${BASE_PATH}/savinderpuriportfolio/02.png`,
-              `${BASE_PATH}/savinderpuriportfolio/03.png`,
-              `${BASE_PATH}/savinderpuriportfolio/04.png`,
-              `${BASE_PATH}/savinderpuriportfolio/05.png`,
-            ]}
-          />
-        </div>
-      );
-    },
-  },
 ];
 export default projects;

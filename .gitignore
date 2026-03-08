@@ -46,3 +46,5 @@ Resend API key.txt
 .env
 
 updated-readme.md
+# Local Netlify folder
+.netlify
