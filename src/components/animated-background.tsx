@@ -1,30 +1,14 @@
 "use client";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Application, SPEObject, SplineEvent } from "@splinetool/runtime";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-const Spline = React.lazy(() => import("@splinetool/react-spline"));
 import { Skill, SkillNames, SKILLS } from "@/data/constants";
 import { sleep } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { usePreloader } from "./preloader";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
-import { SplineErrorBoundary } from "./spline-error-boundary";
-
-// Patch canvas.getContext to always return a WebGL2 context when available
-// Spline runtime requires WebGL2 (uses clearBufferfv) but some browsers default to WebGL1
-if (typeof window !== "undefined" && typeof HTMLCanvasElement !== "undefined") {
-  const originalGetContext = HTMLCanvasElement.prototype.getContext;
-  // @ts-expect-error monkey-patch
-  HTMLCanvasElement.prototype.getContext = function (type: string, attrs?: unknown) {
-    if (type === "webgl") {
-      const ctx = originalGetContext.call(this, "webgl2", attrs);
-      if (ctx) return ctx;
-    }
-    return originalGetContext.call(this, type as string, attrs);
-  };
-}
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -131,29 +115,46 @@ const AnimatedBackground = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const splineContainer = useRef<HTMLDivElement>(null);
   const [splineApp, setSplineApp] = useState<Application>();
-  const [splineError, setSplineError] = useState(false);
 
-  // Catch async WebGL2 errors from Spline's load (not caught by React Error Boundaries)
+  // Manually load Spline using Application class with explicit try/catch
+  // This prevents the WebGL2 clearBufferfv error from ever reaching Next.js error overlay
   useEffect(() => {
-    const handleError = (e: ErrorEvent) => {
-      if (e.message?.includes("clearBufferfv") || e.message?.includes("not a function")) {
-        setSplineError(true);
-        e.preventDefault();
+    let app: Application | null = null;
+    (async () => {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        // Explicitly request WebGL2 before Spline touches the canvas
+        canvas.getContext("webgl2");
+        if (splineContainer.current) {
+          splineContainer.current.innerHTML = "";
+          splineContainer.current.appendChild(canvas);
+        }
+        app = new Application(canvas);
+        await app.load("/assets/skills-keyboard.spline");
+        // Register hover listener directly on the Application
+        app.addEventListener("mouseHover", (e: SplineEvent) => {
+          if (!app || !e.target) return;
+          const name = e.target.name as string;
+          if (name === "body" || name === "platform") {
+            setSelectedSkill(null);
+          } else {
+            const skill = SKILLS[name as SkillNames];
+            if (skill) setSelectedSkill(skill);
+          }
+        });
+        setSplineApp(app);
+        bypassLoading();
+      } catch (err) {
+        console.warn("Spline 3D scene could not load (WebGL2 unavailable):", err);
+        bypassLoading();
       }
-    };
-    const handleUnhandledRejection = (e: PromiseRejectionEvent) => {
-      const msg = String(e.reason);
-      if (msg.includes("clearBufferfv") || msg.includes("not a function")) {
-        setSplineError(true);
-        e.preventDefault();
-      }
-    };
-    window.addEventListener("error", handleError);
-    window.addEventListener("unhandledrejection", handleUnhandledRejection);
+    })();
     return () => {
-      window.removeEventListener("error", handleError);
-      window.removeEventListener("unhandledrejection", handleUnhandledRejection);
+      try { app?.stop(); } catch (_) { }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
@@ -599,26 +600,7 @@ const AnimatedBackground = () => {
     return { start, stop };
   };
   return (
-    <>
-      {!splineError ? (
-        <SplineErrorBoundary>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Spline
-              ref={splineContainer}
-              onLoad={(app: Application) => {
-                setSplineApp(app);
-                bypassLoading();
-              }}
-              onError={() => {
-                setSplineError(true);
-                bypassLoading();
-              }}
-              scene="/assets/skills-keyboard.spline"
-            />
-          </Suspense>
-        </SplineErrorBoundary>
-      ) : null}
-    </>
+    <div ref={splineContainer} style={{ width: "100%", height: "100%" }} />
   );
 };
 
