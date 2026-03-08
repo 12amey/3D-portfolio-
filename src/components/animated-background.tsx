@@ -10,6 +10,21 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { usePreloader } from "./preloader";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import { SplineErrorBoundary } from "./spline-error-boundary";
+
+// Patch canvas.getContext to always return a WebGL2 context when available
+// Spline runtime requires WebGL2 (uses clearBufferfv) but some browsers default to WebGL1
+if (typeof window !== "undefined" && typeof HTMLCanvasElement !== "undefined") {
+  const originalGetContext = HTMLCanvasElement.prototype.getContext;
+  // @ts-expect-error monkey-patch
+  HTMLCanvasElement.prototype.getContext = function (type: string, attrs?: unknown) {
+    if (type === "webgl") {
+      const ctx = originalGetContext.call(this, "webgl2", attrs);
+      if (ctx) return ctx;
+    }
+    return originalGetContext.call(this, type as string, attrs);
+  };
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -491,7 +506,7 @@ const AnimatedBackground = () => {
     const frame1 = splineApp?.findObjectByName("frame-1");
     const frame2 = splineApp?.findObjectByName("frame-2");
     if (!frame1 || !frame2 || !framesParent)
-      return { start: () => {}, stop: () => {} };
+      return { start: () => { }, stop: () => { } };
 
     let interval: NodeJS.Timeout;
     const start = () => {
@@ -517,7 +532,7 @@ const AnimatedBackground = () => {
     return { start, stop };
   };
   const getKeycapsAnimation = () => {
-    if (!splineApp) return { start: () => {}, stop: () => {} };
+    if (!splineApp) return { start: () => { }, stop: () => { } };
 
     let tweens: gsap.core.Tween[] = [];
     const start = () => {
@@ -561,16 +576,18 @@ const AnimatedBackground = () => {
   };
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Spline
-          ref={splineContainer}
-          onLoad={(app: Application) => {
-            setSplineApp(app);
-            bypassLoading();
-          }}
-          scene="/assets/skills-keyboard.spline"
-        />
-      </Suspense>
+      <SplineErrorBoundary>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Spline
+            ref={splineContainer}
+            onLoad={(app: Application) => {
+              setSplineApp(app);
+              bypassLoading();
+            }}
+            scene="/assets/skills-keyboard.spline"
+          />
+        </Suspense>
+      </SplineErrorBoundary>
     </>
   );
 };
