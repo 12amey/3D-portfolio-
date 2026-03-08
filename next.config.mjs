@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    transpilePackages: ["@splinetool/runtime", "three"],
-};
+const nextConfig = {};
 
 export default nextConfig;
