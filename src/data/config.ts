@@ -31,7 +31,7 @@ const config = {
   author: "Amey Deshmane",
   email: "deshmaneamey12@gmail.com",
   site: "https://ameydeshmane.com",
-  resume: "https://drive.google.com/file/d/1L9CFDssYhGy64jKo-yj_462kQiYemfg7/view",
+  resume: "https://drive.google.com/file/d/19uNWwxO94uJf7o1lADEEf97Qz01Uwvvj/view?usp=sharing",
 
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";

@@ -131,6 +131,30 @@ const AnimatedBackground = () => {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const splineContainer = useRef<HTMLDivElement>(null);
   const [splineApp, setSplineApp] = useState<Application>();
+  const [splineError, setSplineError] = useState(false);
+
+  // Catch async WebGL2 errors from Spline's load (not caught by React Error Boundaries)
+  useEffect(() => {
+    const handleError = (e: ErrorEvent) => {
+      if (e.message?.includes("clearBufferfv") || e.message?.includes("not a function")) {
+        setSplineError(true);
+        e.preventDefault();
+      }
+    };
+    const handleUnhandledRejection = (e: PromiseRejectionEvent) => {
+      const msg = String(e.reason);
+      if (msg.includes("clearBufferfv") || msg.includes("not a function")) {
+        setSplineError(true);
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("error", handleError);
+    window.addEventListener("unhandledrejection", handleUnhandledRejection);
+    return () => {
+      window.removeEventListener("error", handleError);
+      window.removeEventListener("unhandledrejection", handleUnhandledRejection);
+    };
+  }, []);
 
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
   const [activeSection, setActiveSection] = useState<Section>("hero");
@@ -576,18 +600,24 @@ const AnimatedBackground = () => {
   };
   return (
     <>
-      <SplineErrorBoundary>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Spline
-            ref={splineContainer}
-            onLoad={(app: Application) => {
-              setSplineApp(app);
-              bypassLoading();
-            }}
-            scene="/assets/skills-keyboard.spline"
-          />
-        </Suspense>
-      </SplineErrorBoundary>
+      {!splineError ? (
+        <SplineErrorBoundary>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Spline
+              ref={splineContainer}
+              onLoad={(app: Application) => {
+                setSplineApp(app);
+                bypassLoading();
+              }}
+              onError={() => {
+                setSplineError(true);
+                bypassLoading();
+              }}
+              scene="/assets/skills-keyboard.spline"
+            />
+          </Suspense>
+        </SplineErrorBoundary>
+      ) : null}
     </>
   );
 };
